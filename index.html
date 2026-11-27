@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conferência de Frete · Takaara Hortifruti</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface-app:#DEE9F4; --surface-card:#F4F7FB; --surface-sunken:#E7EEF7; --surface-hover:#EAF1F8;
+  --border-subtle:#DEE7F1; --border-default:#CFDAE8; --border-strong:#B4C4D6;
+  --green-50:#EFF9F1; --green-100:#DCF0E2; --green-600:#0E8F45; --green-700:#0A7238; --green-800:#0A5A2E;
+  --ink:#191C18; --body:#42473F; --faint:#7C827A;
+  --info-bg:#E1EBF9; --info-fg:#154A94; --info-soft:#EAF0FA;
+  --warn-bg:#FDF0D3; --warn-fg:#A06E00; --warn-line:#E8A100;
+  --bad-bg:#FBE3E1; --bad-fg:#8E1713; --ok-bg:#DCF0E2; --ok-fg:#0A7238;
+  --neu-bg:#E3EAF3; --neu-fg:#4A5768;
+  --ring:0 0 0 2px #F4F7FB,0 0 0 4px rgba(22,155,79,.55);
+}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--surface-app);color:var(--body);font-family:'Urbanist','Inter','Segoe UI',Arial,sans-serif;font-size:14px}
+button,input,select{font-family:inherit}
+:focus-visible{outline:none;box-shadow:var(--ring)}
+.hidden{display:none!important}
+/* login */
+#login{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.login-card{background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:20px;padding:32px;width:100%;max-width:380px;box-shadow:0 1px 2px rgba(25,28,24,.04)}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--green-700)}
+h1{font-size:28px;font-weight:500;color:var(--ink);margin:4px 0 6px;letter-spacing:-.01em}
+.muted{color:var(--faint)}
+label{display:block;font-size:13px;font-weight:500;color:var(--ink);margin:16px 0 6px}
+.input{width:100%;height:40px;border:1px solid var(--border-default);background:var(--surface-card);border-radius:10px;padding:0 12px;font-size:14px;color:var(--ink)}
+.btn{height:40px;border:1px solid var(--green-600);background:var(--green-600);color:#fff;border-radius:10px;padding:0 16px;font-weight:600;font-size:14px;cursor:pointer;transition:all .14s cubic-bezier(.2,.8,.2,1)}
+.btn:hover{background:var(--green-700);border-color:var(--green-700)} .btn:active{transform:scale(.98)}
+.btn.sec{background:var(--surface-card);color:var(--green-700);border-color:var(--border-default)} .btn.sec:hover{background:var(--surface-hover);border-color:var(--border-strong)}
+.btn.sm{height:32px;padding:0 12px;font-size:13px}
+.err{color:var(--bad-fg);font-size:13px;margin-top:10px;min-height:18px}
+/* app */
+#app{max-width:1600px;margin:0 auto;padding:20px 24px 40px}
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.top h1{margin:2px 0 0}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tabs{display:flex;gap:6px;background:transparent}
+.tab{height:34px;padding:0 16px;border-radius:999px;border:1px solid var(--border-default);background:var(--surface-sunken);color:var(--neu-fg);font-weight:600;font-size:13px;cursor:pointer}
+.tab.on{background:var(--green-600);border-color:var(--green-600);color:#fff;box-shadow:0 4px 12px rgba(14,143,69,.25)}
+.banner{border-radius:12px;padding:10px 14px;margin:0 0 12px;font-size:13px}
+.banner.warn{background:var(--warn-bg);color:var(--warn-fg)} .banner.info{background:var(--info-bg);color:var(--info-fg)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:12px}
+.card{background:var(--surface-card);border:1px solid var(--border-subtle);border-radius:16px;padding:14px 16px}
+.kpi small{display:block;color:var(--faint);font-size:12px}
+.kpi b{display:block;font-size:24px;font-weight:600;color:var(--ink);margin-top:2px;font-variant-numeric:tabular-nums}
+.kpi i{font-style:normal;font-size:12px;color:var(--faint)}
+.band{background:var(--green-600);color:#fff;border-radius:12px 12px 0 0;padding:9px 16px;display:flex;justify-content:space-between;font-weight:600;font-size:15px}
+.wrap{overflow:auto;border:1px solid var(--border-subtle);border-top:none;border-radius:0 0 12px 12px;background:var(--surface-card)}
+table{border-collapse:collapse;width:100%;min-width:1100px}
+th{position:sticky;top:0;background:var(--surface-sunken);color:var(--ink);font-weight:600;font-size:11px;padding:8px 5px;border-bottom:1px solid var(--border-default);text-align:center;line-height:1.2;white-space:nowrap}
+th.g{background:var(--green-100);color:var(--green-800)} th.u{background:var(--info-bg);color:var(--info-fg)} th.n2{background:var(--neu-bg);color:var(--neu-fg)} th.a{background:var(--warn-bg);color:var(--warn-fg)}
+td{padding:6px 6px;border-bottom:1px solid var(--border-subtle);text-align:center;font-size:12.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.l{text-align:left;white-space:normal;min-width:190px;max-width:260px} td.n{text-align:right}
+td.val,td.tak{background:var(--green-50);color:var(--green-800);font-weight:600} td.gry{background:var(--neu-bg);color:var(--neu-fg)} td.blu{background:var(--info-soft);color:var(--info-fg)} td.blu2{background:var(--info-bg);color:var(--info-fg);font-weight:600}
+tr.grp td{background:var(--green-100);color:var(--green-800);font-weight:600;text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px}
+tr.tot td{background:var(--surface-sunken);color:var(--ink);font-weight:600;border-top:2px solid var(--green-600)}
+tr:not(.grp):not(.tot):hover td{filter:brightness(.97)}
+.b{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:600;white-space:nowrap}
+.b.ok{background:var(--ok-bg);color:var(--ok-fg)} .b.warn{background:var(--warn-bg);color:var(--warn-fg)} .b.bad{background:var(--bad-bg);color:var(--bad-fg)} .b.neu{background:var(--neu-bg);color:var(--neu-fg)} .b.info{background:var(--info-bg);color:var(--info-fg)}
+td input.f,td select.f{height:30px;border-radius:8px;border:1.5px solid var(--warn-line);background:var(--warn-bg);color:var(--warn-fg);font-weight:600;font-size:12.5px;padding:0 8px}
+td input.f{width:92px;text-align:right} td select.f{border-color:var(--info-fg);background:var(--info-bg);color:var(--info-fg)}
+td input.f:disabled,td select.f:disabled{border-color:var(--border-default);background:var(--surface-sunken);color:var(--faint)}
+.sbtn{height:24px;padding:0 8px;border-radius:7px;border:1px solid var(--border-default);background:var(--surface-card);color:var(--neu-fg);font-size:11px;cursor:pointer;margin-left:4px}
+.sbtn:hover{background:var(--surface-hover)}
+.sbtn.pri{background:var(--green-600);border-color:var(--green-600);color:#fff;font-weight:600}
+.note{font-size:12px;color:var(--faint);margin-top:8px}
+.legend span{margin-right:10px}
+.toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.empty{padding:40px;text-align:center;color:var(--faint)}
+/* impressão */
+.print-title{display:none}
+@page{size:A4 landscape;margin:8mm}
+@media print{
+  html,body{background:#fff}
+  #app{padding:0;max-width:none}
+  .top .bar,.tabs,.toolbar,.banner,.note .no-print,.sbtn,#toast{display:none!important}
+  .top{margin-bottom:4px} .top h1{font-size:18px}
+  .kpis{display:none}
+  .wrap{overflow:visible;border:none}
+  table{min-width:0;font-size:9px} th,td{padding:2px 3px;font-size:8.5px}
+  td input.f,td select.f{border:none;background:transparent;height:auto;padding:0;font-size:8.5px;width:auto;appearance:none;-webkit-appearance:none;color:inherit}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  th{position:static}
+  .band{border-radius:0}
+}
+#toast{position:fixed;right:20px;bottom:20px;background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .22s}
+#toast.on{opacity:1}
+</style>
+</head>
+<body>
+
+<div id="login">
+  <form class="login-card" id="loginForm" autocomplete="off">
+    <div class="eyebrow">Takaara Hortifruti · Faturamento</div>
+    <h1>Conferência de Frete</h1>
+    <div class="muted">Digite a senha para abrir.</div>
+    <label for="pw">Senha</label>
+    <input class="input" id="pw" type="password" autofocus>
+    <div class="err" id="loginErr"></div>
+    <button class="btn" type="submit" style="width:100%;margin-top:6px">Entrar</button>
+  </form>
+</div>
+
+<div id="app" class="hidden">
+  <div class="top">
+    <div>
+      <div class="eyebrow">Takaara Hortifruti · Faturamento</div>
+      <h1 id="pageTitle">Conferência de Frete</h1>
+    </div>
+    <div class="bar">
+      <label for="dia" style="margin:0">Data</label>
+      <select class="input" id="dia" style="width:150px"></select>
+      <button class="btn sec" id="btnSair">Sair</button>
+    </div>
+  </div>
+  <div id="modoBanner"></div>
+  <div class="toolbar">
+    <div class="tabs" id="tabs">
+      <button class="tab on" data-tab="conf">Conferência</button>
+      <button class="tab" data-tab="dia">Frete do dia</button>
+      <button class="tab" data-tab="ito">Frete ITO</button>
+    </div>
+    <div class="bar">
+      <button class="btn sec" id="btnImprimir">Imprimir</button>
+      <button class="btn hidden" id="btnExcel">Excel</button>
+    </div>
+  </div>
+  <div id="view"></div>
+</div>
+<div id="toast"></div>
+
+<script src="dados_frete.js"></script>
+<script>
+/* =========================================================
+   CONFIGURAÇÃO
+   - SENHA_HASH: SHA-256 da senha única do Faturamento (veja o LEIA-ME)
+   - FIREBASE_URL: URL do Realtime Database (ex.: https://planilha-takaara-default-rtdb.firebaseio.com)
+     Em branco = modo teste (dados só neste navegador).
+   ========================================================= */
+const CONFIG = {
+  SENHA_HASH: "",
+  FIREBASE_URL: "https://planilha-takaara-default-rtdb.firebaseio.com",
+  FIREBASE_RAIZ: "conferencia_frete",
+  API_KEY: "AIzaSyDRXb6MVq3uS5_8xS-y15kLr_2B5CJeAwY",                       // Chave de API da Web (Configurações do projeto > Geral)
+  EMAIL: "faturamento@takaara.com.br",  // usuário criado no Firebase Authentication
+  ATUALIZAR_A_CADA_SEGUNDOS: 20
+};
+
+/* ---------- utilidades ---------- */
+const $=s=>document.querySelector(s);
+const f2=v=>Number(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const f0=v=>Number(v).toLocaleString('pt-BR',{maximumFractionDigits:0});
+const pct=v=>f2(v)+'%';
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(toast._t);toast._t=setTimeout(()=>e.classList.remove('on'),2400)}
+function dataBR(iso){const [y,m,d]=iso.split('-');return `${d}/${m}/${y}`}
+const SEMANA=['DOMINGO','SEGUNDA-FEIRA','TERÇA-FEIRA','QUARTA-FEIRA','QUINTA-FEIRA','SEXTA-FEIRA','SÁBADO'];
+function diaSemana(iso){const [y,m,d]=iso.split('-').map(Number);return SEMANA[new Date(y,m-1,d).getDay()]}
+
+/* SHA-256 compacto */
+function sha256(ascii){
+  function rr(v,a){return (v>>>a)|(v<<(32-a))}
+  const m=Math.pow,mw=m(2,32);let result='';
+  const words=[],asciiBitLength=ascii.length*8;
+  let hash=sha256.h=sha256.h||[],k=sha256.k=sha256.k||[],pc=k.length;
+  const isC={};
+  for(let c=2;pc<64;c++){if(!isC[c]){for(let i=0;i<313;i+=c)isC[i]=c;hash[pc]=(m(c,.5)*mw)|0;k[pc++]=(m(c,1/3)*mw)|0}}
+  ascii+='\x80';while(ascii.length%64-56)ascii+='\x00';
+  for(let i=0;i<ascii.length;i++){const j=ascii.charCodeAt(i);if(j>>8)return;words[i>>2]|=j<<((3-i)%4)*8}
+  words[words.length]=((asciiBitLength/mw)|0);words[words.length]=(asciiBitLength);
+  for(let j=0;j<words.length;){
+    const w=words.slice(j,j+=16),oldHash=hash;hash=hash.slice(0,8);
+    for(let i=0;i<64;i++){
+      const w15=w[i-15],w2=w[i-2],a=hash[0],e=hash[4];
+      const t1=hash[7]+(rr(e,6)^rr(e,11)^rr(e,25))+((e&hash[5])^((~e)&hash[6]))+k[i]+(w[i]=(i<16)?w[i]:(w[i-16]+(rr(w15,7)^rr(w15,18)^(w15>>>3))+w[i-7]+(rr(w2,17)^rr(w2,19)^(w2>>>10)))|0);
+      const t2=(rr(a,2)^rr(a,13)^rr(a,22))+((a&hash[1])^(a&hash[2])^(hash[1]&hash[2]));
+      hash=[(t1+t2)|0].concat(hash);hash[4]=(hash[4]+t1)|0;
+    }
+    for(let i=0;i<8;i++)hash[i]=(hash[i]+oldHash[i])|0;
+  }
+  for(let i=0;i<8;i++)for(let j=3;j+1;j--){const b=(hash[i]>>(j*8))&255;result+=((b<16)?0:'')+b.toString(16)}
+  sha256.h=sha256.k=null;return result;
+}
+
+/* ---------- dados do ERP criptografados (AES-256-GCM): decifra no navegador com a senha digitada no login ---------- */
+let PW=null;
+async function decifrar(env,senha){
+  const u=t=>Uint8Array.from(atob(t),c=>c.charCodeAt(0)),te=new TextEncoder();
+  const km=await crypto.subtle.importKey('raw',te.encode(senha),'PBKDF2',false,['deriveKey']);
+  const key=await crypto.subtle.deriveKey({name:'PBKDF2',salt:u(env.salt),iterations:env.it,hash:'SHA-256'},km,{name:'AES-GCM',length:256},false,['decrypt']);
+  const pt=await crypto.subtle.decrypt({name:'AES-GCM',iv:u(env.iv),additionalData:te.encode('takaara-painel-v1')},key,u(env.ct));
+  const txt=await new Response(new Blob([pt]).stream().pipeThrough(new DecompressionStream('gzip'))).text();
+  return JSON.parse(txt);
+}
+async function carregarDados(){
+  if(window.DADOS_FRETE_ENC){window.DADOS_FRETE=await decifrar(window.DADOS_FRETE_ENC,PW)}
+}
+function recarregarDados(){
+  const sc=document.createElement('script');sc.src='dados_frete.js?t='+Date.now();
+  sc.onload=async()=>{
+    try{
+      const antes=window.DADOS_FRETE&&window.DADOS_FRETE.geradoEm;
+      sc.remove();
+      if(window.DADOS_FRETE_ENC)window.DADOS_FRETE=await decifrar(window.DADOS_FRETE_ENC,PW);
+      if(window.DADOS_FRETE&&window.DADOS_FRETE.geradoEm!==antes){
+        trocarDia();const a=document.activeElement;if(!(a&&a.dataset&&a.dataset.f))render();
+      }
+    }catch(e){}
+  };
+  sc.onerror=()=>sc.remove();document.head.appendChild(sc);
+}
+
+/* ---------- login ---------- */
+function logado(){if(window.DADOS_FRETE_ENC&&!PW)return false;try{return USA_AUTH?!!sessionStorage.getItem('frete_rt'):sessionStorage.getItem('frete_ok')==='1'}catch(e){return false}}
+$('#loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();$('#loginErr').textContent='';
+  if(USA_AUTH){
+    try{await Auth.login($('#pw').value);PW=$('#pw').value;await iniciar()}
+    catch(err){const m=String(err.message||err);$('#loginErr').textContent=(/INVALID_LOGIN|INVALID_PASSWORD|EMAIL_NOT_FOUND/.test(m)?'Senha incorreta.':'Erro do Firebase: '+m)+' ('+CONFIG.EMAIL+')';$('#pw').select()}
+    return;
+  }
+  const h=sha256(unescape(encodeURIComponent($('#pw').value)));
+  if(h===CONFIG.SENHA_HASH){PW=$('#pw').value;try{sessionStorage.setItem('frete_ok','1')}catch(e){};iniciar()}
+  else{$('#loginErr').textContent='Senha incorreta.';$('#pw').select()}
+});
+$('#btnSair').addEventListener('click',()=>{Auth.sair();try{sessionStorage.removeItem('frete_ok')}catch(e){};location.reload()});
+
+/* ---------- armazenamento compartilhado (Firebase REST ou local) ---------- */
+const MODO_LOCAL=!CONFIG.FIREBASE_URL;
+const USA_AUTH=!!CONFIG.API_KEY;
+const Auth={
+  idToken:null,exp:0,
+  async _post(url,body,json){
+    const r=await fetch(url,{method:'POST',headers:{'Content-Type':json?'application/json':'application/x-www-form-urlencoded'},body});
+    const d=await r.json();if(!r.ok)throw new Error((d.error&&d.error.message)||('HTTP '+r.status));return d;
+  },
+  _guardar(idToken,refresh,exp){this.idToken=idToken;this.exp=Date.now()+(Number(exp)-120)*1000;try{sessionStorage.setItem('frete_rt',refresh)}catch(e){}},
+  async login(senha){
+    const d=await this._post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key='+CONFIG.API_KEY,JSON.stringify({email:CONFIG.EMAIL,password:senha,returnSecureToken:true}),true);
+    this._guardar(d.idToken,d.refreshToken,d.expiresIn);
+  },
+  async token(){
+    if(this.idToken&&Date.now()<this.exp)return this.idToken;
+    let rt=null;try{rt=sessionStorage.getItem('frete_rt')}catch(e){}
+    if(!rt)throw new Error('Sessão expirada');
+    const d=await this._post('https://securetoken.googleapis.com/v1/token?key='+CONFIG.API_KEY,'grant_type=refresh_token&refresh_token='+encodeURIComponent(rt),false);
+    this._guardar(d.id_token,d.refresh_token,d.expires_in);return this.idToken;
+  },
+  sair(){this.idToken=null;try{sessionStorage.removeItem('frete_rt')}catch(e){}}
+};
+const Store={
+  async url(p){let u=CONFIG.FIREBASE_URL.replace(/\/$/,'')+'/'+CONFIG.FIREBASE_RAIZ+'/'+p+'.json';if(USA_AUTH)u+='?auth='+encodeURIComponent(await Auth.token());return u},
+  async ler(p){
+    if(MODO_LOCAL){try{return JSON.parse(localStorage.getItem('frete/'+p)||'null')}catch(e){return null}}
+    const r=await fetch(await this.url(p));if(!r.ok)throw new Error('Firebase '+r.status);return r.json();
+  },
+  async gravar(p,obj){
+    if(MODO_LOCAL){const cur=(await this.ler(p))||{};localStorage.setItem('frete/'+p,JSON.stringify(Object.assign(cur,obj)));return}
+    const r=await fetch(await this.url(p),{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(obj)});
+    if(!r.ok)throw new Error('Firebase '+r.status);
+  }
+};
+
+/* ---------- estado ---------- */
+const GRUPOS=['SNFS','NFS','CTE','AT'];
+const GRUPO_NOME={SNFS:'SNFS · Sem NFS',NFS:'NFS · Com NFSE',CTE:'CTE · Com CTE',AT:'AT · Lojas Atacadão',SEM:'Sem grupo'};
+const state={tab:'conf',dia:null,cargas:[],salvo:{},grupoMot:{}};
+
+/* ---------- cálculos (mesmas fórmulas da planilha) ---------- */
+function calcular(c,s){
+  const junto=s.junto==='Sim';
+  const pito=junto?c.pito:0;
+  const ptot=c.pt||0;
+  const fracIto=(junto&&ptot>0)?pito/ptot:0;
+  const ito2=c.frete*fracIto, itod=c.desc*fracIto;
+  const tak=c.frete-ito2, takd=c.desc-itod;
+  const takt=tak+takd, itot=ito2+itod;
+  const outro=Number(s.outro)||0;
+  return {junto,pito,ito2,itod,itot,tak,takd,takt,outro,
+    p1:c.val>0?takt/c.val*100:0, p2:c.val>0?(takt-outro)/c.val*100:0};
+}
+function corPct(p){return p<=8?'ok':(p<=10?'warn':'bad')}
+function foto(c){return {val:c.val,pt:c.pt,pito:c.pito,ptak:c.ptak,frete:c.frete,desc:c.desc}}
+function fotoCompleta(c){return Object.assign({cod:c.cod,loc:c.loc,mot:c.mot,veic:c.veic},foto(c))}
+function mudouERP(c,s){
+  if(!s.conferido||!s.snap)return false;
+  const a=s.snap,b=foto(c);
+  return Object.keys(b).some(k=>Math.abs((a[k]||0)-(b[k]||0))>0.005);
+}
+function estadoCarga(c){
+  const s=Object.assign({},state.salvo[c.cod]||{});
+  if(!s.grupo)s.grupo=state.grupoMot[c.mot]||c.grp||'SEM';
+  if(!s.junto)s.junto=c.pito>0?'Sim':'Não';
+  if(s.outro==null)s.outro=0;
+  s.alterado=mudouERP(c,s);
+  s.fechado=!!s.conferido&&!s.alterado;
+  return s;
+}
+function linhas(){
+  return state.cargas.map(c=>({c,s:estadoCarga(c)})).sort((a,b)=>{
+    const ga=GRUPOS.indexOf(a.s.grupo), gb=GRUPOS.indexOf(b.s.grupo);
+    return (ga<0?9:ga)-(gb<0?9:gb)||a.c.cod-b.c.cod;
+  });
+}
+
+/* ---------- renderização ---------- */
+function veiculoTxt(v){return esc(v)}
+function grpRow(prev,cur,n){return prev!==cur?`<tr class="grp"><td colspan="${n}">${GRUPO_NOME[cur]||cur}</td></tr>`:''}
+function totais(L){
+  const T={val:0,pt:0,pito:0,ptak:0,frete:0,desc:0,outro:0,itot:0,takt:0,tak:0,takd:0,ito2:0,itod:0,n:L.length};
+  L.forEach(({c,s})=>{const k=calcular(c,s);T.val+=c.val;T.pt+=c.pt;T.pito+=k.pito;T.ptak+=c.ptak;T.frete+=c.frete;T.desc+=c.desc;T.outro+=k.outro;T.itot+=k.itot;T.takt+=k.takt;T.ito2+=k.ito2;T.itod+=k.itod;T.tak+=k.tak;T.takd+=k.takd});
+  T.p1=T.val?T.takt/T.val*100:0;T.p2=T.val?(T.takt-T.outro)/T.val*100:0;return T;
+}
+function cabecalhoFaixa(){return `<div class="band"><span>${dataBR(state.dia)}</span><span>${diaSemana(state.dia)}</span></div>`}
+
+function viewConf(){
+  const L=linhas();if(!L.length)return '<div class="card empty">Sem cargas nesta data.</div>';
+  const T=totais(L);const conf=L.filter(x=>x.s.fechado).length;
+  let rows='',prev=null;
+  L.forEach(({c,s})=>{
+    const k=calcular(c,s);
+    rows+=grpRow(prev,s.grupo,16);prev=s.grupo;
+    const dis=s.fechado?'disabled':'';
+    const optG=GRUPOS.concat(['SEM']).map(g=>`<option value="${g}" ${s.grupo===g?'selected':''}>${g==='SEM'?'—':g}</option>`).join('');
+    const optJ=['Não','Sim'].map(j=>`<option ${s.junto===j?'selected':''}>${j}</option>`).join('');
+    let sit;
+    if(s.alterado)sit=`<span class="b warn">ERP alterado</span><button class="sbtn pri" data-act="conferir" data-cod="${c.cod}">Conferir de novo</button>`;
+    else if(s.conferido)sit=`<span class="b ok">Conferido</span><button class="sbtn" data-act="reabrir" data-cod="${c.cod}">Reabrir</button>`;
+    else sit=`<span class="b neu">Pendente</span><button class="sbtn pri" data-act="conferir" data-cod="${c.cod}">Conferido</button>`;
+    rows+=`<tr><td>${c.cod}</td><td class="l">${esc(c.loc)}</td><td class="n val">R$ ${f2(c.val)}</td><td class="l" style="min-width:130px">${esc(c.mot)}</td><td>${veiculoTxt(c.veic)}</td>
+    <td><select class="f" data-f="grupo" data-cod="${c.cod}" ${dis}>${optG}</select></td>
+    <td><select class="f" data-f="junto" data-cod="${c.cod}" ${dis}>${optJ}</select></td>
+    <td class="n">${f0(c.pt)}</td><td class="n gry">${c.pito?f0(c.pito):''}</td><td class="n tak">${f0(c.ptak)}</td>
+    <td class="n blu">${f2(c.frete)}</td><td class="n blu">${c.desc?f2(c.desc):'-'}</td>
+    <td class="n"><input class="f" data-f="outro" data-cod="${c.cod}" inputmode="decimal" value="${k.outro?f2(k.outro):''}" placeholder="0,00" ${dis}></td>
+    <td class="n blu2">${f0(k.itot)}</td><td class="n blu2">${f2(k.takt)}</td><td style="min-width:190px">${sit}</td></tr>`;
+  });
+  rows+=`<tr class="tot"><td colspan="2" style="text-align:left">Total do dia</td><td class="n">R$ ${f2(T.val)}</td><td></td><td></td><td></td><td></td><td class="n">${f0(T.pt)}</td><td class="n">${f0(T.pito)}</td><td class="n">${f0(T.ptak)}</td><td class="n">${f2(T.frete)}</td><td class="n">${f2(T.desc)}</td><td class="n">${f2(T.outro)}</td><td class="n">${f0(T.itot)}</td><td class="n">${f2(T.takt)}</td><td>${conf} de ${T.n}</td></tr>`;
+  return `${cabecalhoFaixa()}<div class="wrap"><table><thead><tr><th>Cód.</th><th>Localidade</th><th class="g">VALOR</th><th>Motorista</th><th>Veículo</th><th class="a">Grupo</th><th class="a">Frete junto<br>com ITO?</th><th>PESO<br>TOTAL</th><th class="n2">PESO<br>ITO</th><th class="g">PESO<br>TAK</th><th class="u">FRETE<br>TOTAL</th><th class="u">VALOR<br>DESCARGA</th><th class="a">Outro Frete<br>(digitar)</th><th class="u">ITO<br>TOTAL</th><th class="u">TAKAARA<br>TOTAL</th><th>Situação</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="note">Pesos e valores vêm do ERP. Cargas marcadas "Conferido" ficam travadas; use Reabrir para alterar. Se o ERP mudar valor, peso ou frete depois da conferência, a carga volta para pendente com o aviso "ERP alterado".</div>`;
+}
+
+function viewDia(){
+  const L=linhas();if(!L.length)return '<div class="card empty">Sem cargas nesta data.</div>';
+  const T=totais(L);const conf=L.filter(x=>x.s.fechado).length;
+  let rows='',prev=null;
+  L.forEach(({c,s})=>{
+    const k=calcular(c,s);rows+=grpRow(prev,s.grupo,17);prev=s.grupo;
+    rows+=`<tr><td>${c.cod}</td><td class="l">${esc(c.loc)}</td><td class="n val">${f2(c.val)}</td><td class="l" style="min-width:130px">${esc(c.mot)}</td><td>${veiculoTxt(c.veic)}</td><td class="n">${f0(c.pt)}</td><td class="n gry">${c.pito?f0(c.pito):''}</td><td class="n tak">${f0(c.ptak)}</td><td class="n blu">${f2(c.frete)}</td><td class="n blu">${c.desc?f2(c.desc):'-'}</td><td class="n" style="background:var(--warn-bg);color:var(--warn-fg);font-weight:600">${k.outro?f2(k.outro):''}</td><td class="n blu2">${f0(k.ito2)}</td><td class="n blu2">${f0(k.itod)}</td><td class="n blu2">${f0(k.itot)}</td><td class="n">${f0(k.tak)}</td><td class="n">${f0(k.takd)}</td><td class="n blu2">${f0(k.takt)}</td><td><span class="b ${corPct(k.p2)}">${pct(k.p2)}</span></td></tr>`;
+  });
+  rows+=`<tr class="tot"><td colspan="2" style="text-align:left">Total do dia (${T.n} cargas)</td><td class="n">${f2(T.val)}</td><td></td><td></td><td class="n">${f0(T.pt)}</td><td></td><td></td><td class="n">${f2(T.frete)}</td><td class="n">${f2(T.desc)}</td><td class="n">${f2(T.outro)}</td><td></td><td></td><td class="n">${f0(T.itot)}</td><td></td><td></td><td class="n">${f0(T.takt)}</td><td><span class="b ${corPct(T.p2)}">${pct(T.p2)}</span></td></tr>`;
+  const kp=`<div class="kpis"><div class="card kpi"><small>Total vendido</small><b>R$ ${f2(T.val)}</b><i>${T.n} cargas</i></div><div class="card kpi"><small>Frete TAKAARA total</small><b>R$ ${f2(T.takt)}</b><i>Outro Frete: R$ ${f2(T.outro)}</i></div><div class="card kpi"><small>% Percentual do dia</small><b>${pct(T.p2)}</b><i>ponderado, com Outro Frete descontado</i></div><div class="card kpi"><small>Conferidas</small><b>${conf} de ${T.n}</b><i>${T.n-conf} pendentes</i></div></div>`;
+  return `${kp}${cabecalhoFaixa()}<div class="wrap"><table><thead><tr><th>Cód.</th><th>Localidade</th><th class="g">VALOR</th><th>Motorista</th><th>Veíc.</th><th>PESO<br>TOTAL</th><th class="n2">PESO<br>ITO</th><th class="g">PESO<br>TAK</th><th class="u">FRETE<br>TOTAL</th><th class="u">VALOR<br>DESC.</th><th class="a">Outro<br>Frete</th><th class="u">ITO2</th><th class="u">ITO<br>DESC.</th><th class="u">ITO<br>TOTAL</th><th>TAKAARA</th><th>TAKAARA<br>DESC.</th><th class="u">TAKAARA<br>TOTAL</th><th>%<br>Percentual</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="note legend">Percentual: <span class="b ok">até 8,00%</span><span class="b warn">até 10,00%</span><span class="b bad">acima de 10,00%</span> Só aparecem cargas lançadas no ERP.</div>`;
+}
+
+function listaIto(){return linhas().filter(x=>x.s.junto==='Sim')}
+function viewIto(){
+  const L=listaIto();
+  if(!L.length)return '<div class="card empty">Nenhuma carga marcada como "Frete junto com ITO" nesta data.</div>';
+  let rows='';
+  L.forEach(({c,s})=>{const k=calcular(c,s);
+    rows+=`<tr><td class="l">${esc(c.loc)}</td><td class="n val">R$ ${f2(c.val)}</td><td class="l" style="min-width:130px">${esc(c.mot)}</td><td>${veiculoTxt(c.veic)}</td><td class="n">${f0(c.pt)}</td><td class="n gry">${f0(c.pito)}</td><td class="n tak">${f0(c.ptak)}</td><td class="n blu">R$ ${f2(c.frete)}</td><td class="n blu">${c.desc?'R$ '+f2(c.desc):'R$ -'}</td><td class="n blu2">${f0(k.ito2)}</td><td class="n blu2">${f0(k.itod)}</td><td class="n blu2">${f0(k.itot)}</td><td class="n">${f0(k.tak)}</td><td class="n">${f0(k.takd)}</td><td class="n blu2">${f0(k.takt)}</td><td><span class="b ${corPct(k.p2)}">${pct(k.p2)}</span></td></tr>`;});
+  const semPeso=L.filter(x=>!(x.c.pito>0));
+  const T=totais(L);
+  rows+=`<tr class="tot"><td style="text-align:left">Total (${T.n} cargas)</td><td class="n">R$ ${f2(T.val)}</td><td></td><td></td><td class="n">${f0(T.pt)}</td><td class="n">${f0(T.pito)}</td><td class="n">${f0(T.ptak)}</td><td class="n">R$ ${f2(T.frete)}</td><td class="n">R$ ${f2(T.desc)}</td><td></td><td></td><td class="n">${f0(T.itot)}</td><td></td><td></td><td class="n">${f0(T.takt)}</td><td><span class="b ${corPct(T.p2)}">${pct(T.p2)}</span></td></tr>`;
+  return `${cabecalhoFaixa()}<div class="wrap"><table><thead><tr><th>Localidade</th><th class="g">VALOR</th><th>Motorista</th><th>Veículo</th><th>PESO<br>TOTAL</th><th class="n2">PESO<br>ITO</th><th class="g">PESO<br>TAK</th><th class="u">FRETE<br>TOTAL</th><th class="u">VALOR<br>DESCARGA</th><th class="u">ITO2</th><th class="u">ITO<br>DESCARGA</th><th class="u">ITO<br>TOTAL</th><th>TAKAARA</th><th>TAKAARA<br>DESCARGA</th><th class="u">TAKAARA<br>TOTAL</th><th>Percentual</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="note">Cargas marcadas "Sim" em "Frete junto com ITO?" na Conferência. Use Imprimir ou Excel para enviar ao ITO.${semPeso.length?`<br><b>Atenção:</b> ${semPeso.length} carga(s) sem Peso ITO no ERP (${semPeso.map(x=>x.c.cod).join(', ')}): nada a ratear para o ITO nelas, o ITO fica em 0.`:''}</div>`;
+}
+
+function render(){
+  const tit={conf:'Conferência de Frete',dia:'Frete do dia',ito:'Frete ITO'};
+  $('#pageTitle').textContent=tit[state.tab];
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.tab===state.tab));
+  $('#btnExcel').classList.toggle('hidden',state.tab!=='ito');
+  $('#view').innerHTML=state.tab==='conf'?viewConf():state.tab==='dia'?viewDia():viewIto();
+  document.title=`${tit[state.tab]} · ${dataBR(state.dia)} · Takaara Hortifruti`;
+}
+
+/* ---------- ações ---------- */
+function parseNum(t){t=String(t).trim().replace(/\./g,'').replace(',','.');const n=parseFloat(t);return isFinite(n)?n:0}
+async function salvar(cod,obj){
+  state.salvo[cod]=Object.assign(state.salvo[cod]||{},obj);
+  try{await Store.gravar(`dias/${state.dia}/${cod}`,obj)}catch(e){toast('Falha ao gravar: '+e.message)}
+}
+document.addEventListener('change',async e=>{
+  const t=e.target;if(!t.dataset||!t.dataset.f)return;
+  const cod=t.dataset.cod, c=state.cargas.find(x=>String(x.cod)===cod);
+  if(t.dataset.f==='outro'){const v=parseNum(t.value);await salvar(cod,{outro:v})}
+  else if(t.dataset.f==='junto'){await salvar(cod,{junto:t.value})}
+  else if(t.dataset.f==='grupo'){
+    await salvar(cod,{grupo:t.value});
+    if(c){state.grupoMot[c.mot]=t.value;try{await Store.gravar('grupo_motorista',{[btoa(unescape(encodeURIComponent(c.mot)))]:t.value})}catch(err){}}
+  }
+  render();
+});
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('[data-act]');if(!b)return;
+  const cod=b.dataset.cod, c=state.cargas.find(x=>String(x.cod)===cod);
+  if(b.dataset.act==='conferir'){
+    const s=estadoCarga(c);await salvar(cod,{conferido:true,conferidoEm:new Date().toISOString(),grupo:s.grupo,junto:s.junto,outro:Number(s.outro)||0,snap:fotoCompleta(c)});toast('Carga '+cod+' conferida');
+  }else if(b.dataset.act==='reabrir'){
+    await salvar(cod,{conferido:false});toast('Carga '+cod+' reaberta');
+  }
+  render();
+});
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{state.tab=b.dataset.tab;render()}));
+$('#btnImprimir').addEventListener('click',()=>window.print());
+
+/* ---------- Excel (.xlsx gerado no navegador, sem bibliotecas) ---------- */
+function crc32(buf){let c,crc=0xFFFFFFFF;if(!crc32.t){crc32.t=[];for(let n=0;n<256;n++){c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;crc32.t[n]=c}}
+  for(let i=0;i<buf.length;i++)crc=crc32.t[(crc^buf[i])&255]^(crc>>>8);return(crc^0xFFFFFFFF)>>>0}
+function zipStore(files){
+  const enc=new TextEncoder(),parts=[],cd=[];let off=0;
+  const u16=v=>[v&255,(v>>8)&255],u32=v=>[v&255,(v>>8)&255,(v>>16)&255,(v>>24)&255];
+  files.forEach(f=>{
+    const name=enc.encode(f.name),data=enc.encode(f.data),crc=crc32(data);
+    const lh=[0x50,0x4b,3,4,...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(crc),...u32(data.length),...u32(data.length),...u16(name.length),...u16(0)];
+    parts.push(new Uint8Array(lh),name,data);
+    cd.push([0x50,0x4b,1,2,...u16(20),...u16(20),...u16(0x0800),...u16(0),...u16(0),...u16(0x21),...u32(crc),...u32(data.length),...u32(data.length),...u16(name.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(off)],name);
+    off+=lh.length+name.length+data.length;
+  });
+  let cdSize=0;cd.forEach(x=>{parts.push(new Uint8Array(x[0]),x[1]);cdSize+=x[0].length+x[1].length});
+  parts.push(new Uint8Array([0x50,0x4b,5,6,0,0,0,0,...u16(files.length),...u16(files.length),...u32(cdSize),...u32(off),0,0]));
+  return new Blob(parts,{type:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+}
+function colLetra(i){let s='';i++;while(i>0){const m=(i-1)%26;s=String.fromCharCode(65+m)+s;i=Math.floor((i-1)/26)}return s}
+function xlsxBlob(titulo,cab,linhasX,widths){
+  const X=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+  let sd='';
+  // linha 1: título
+  sd+=`<row r="1"><c r="A1" s="1" t="inlineStr"><is><t>${X(titulo)}</t></is></c></row>`;
+  sd+=`<row r="2">`+cab.map((h,i)=>`<c r="${colLetra(i)}2" s="2" t="inlineStr"><is><t>${X(h)}</t></is></c>`).join('')+`</row>`;
+  linhasX.forEach((ln,ri)=>{
+    const r=ri+3,tot=ln.tot;
+    sd+=`<row r="${r}">`+ln.v.map((v,i)=>{
+      const ref=colLetra(i)+r;
+      if(v===''||v==null)return `<c r="${ref}" s="${tot?5:0}"/>`;
+      if(typeof v==='number')return `<c r="${ref}" s="${tot?6:(ln.fmt&&ln.fmt[i]==='p'?4:3)}"><v>${v}</v></c>`;
+      return `<c r="${ref}" s="${tot?5:0}" t="inlineStr"><is><t>${X(v)}</t></is></c>`;
+    }).join('')+`</row>`;
+  });
+  const cols='<cols>'+widths.map((w,i)=>`<col min="${i+1}" max="${i+1}" width="${w}" customWidth="1"/>`).join('')+'</cols>';
+  const sheet=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><sheetViews><sheetView workbookViewId="0"><pane ySplit="2" topLeftCell="A3" activePane="bottomLeft" state="frozen"/></sheetView></sheetViews>${cols}<sheetData>${sd}</sheetData><pageSetup orientation="landscape" fitToWidth="1"/></worksheet>`;
+  const styles=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="2"><numFmt numFmtId="164" formatCode="#,##0.00"/><numFmt numFmtId="165" formatCode="0.00&quot;%&quot;"/></numFmts><fonts count="4"><font><sz val="10"/><name val="Calibri"/></font><font><b/><sz val="14"/><color rgb="FF191C18"/><name val="Calibri"/></font><font><b/><sz val="10"/><color rgb="FFFFFFFF"/><name val="Calibri"/></font><font><b/><sz val="10"/><name val="Calibri"/></font></fonts><fills count="4"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF0E8F45"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE7EEF7"/></patternFill></fill></fills><borders count="2"><border><left/><right/><top/><bottom/><diagonal/></border><border><left style="thin"><color rgb="FFDEE7F1"/></left><right style="thin"><color rgb="FFDEE7F1"/></right><top style="thin"><color rgb="FFDEE7F1"/></top><bottom style="thin"><color rgb="FFDEE7F1"/></bottom><diagonal/></border></borders><cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs><cellXfs count="7"><xf numFmtId="0" fontId="0" fillId="0" borderId="1" xfId="0" applyBorder="1"/><xf numFmtId="0" fontId="1" fillId="0" borderId="0" xfId="0" applyFont="1"/><xf numFmtId="0" fontId="2" fillId="2" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1"><alignment horizontal="center" vertical="center" wrapText="1"/></xf><xf numFmtId="164" fontId="0" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyBorder="1"/><xf numFmtId="165" fontId="3" fillId="0" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyBorder="1"/><xf numFmtId="0" fontId="3" fillId="3" borderId="1" xfId="0" applyFont="1" applyFill="1" applyBorder="1"/><xf numFmtId="164" fontId="3" fillId="3" borderId="1" xfId="0" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1"/></cellXfs></styleSheet>`;
+  return zipStore([
+    {name:'[Content_Types].xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/></Types>`},
+    {name:'_rels/.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`},
+    {name:'xl/workbook.xml',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheets><sheet name="Frete ITO" sheetId="1" r:id="rId1"/></sheets></workbook>`},
+    {name:'xl/_rels/workbook.xml.rels',data:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`},
+    {name:'xl/worksheets/sheet1.xml',data:sheet},
+    {name:'xl/styles.xml',data:styles}
+  ]);
+}
+$('#btnExcel').addEventListener('click',()=>{
+  const L=listaIto();if(!L.length){toast('Nenhuma carga marcada como junto com ITO');return}
+  const cab=['Localidade','VALOR','Motorista','Veículo','PESO TOTAL','PESO ITO','PESO TAK','FRETE TOTAL','VALOR DESCARGA','ITO2','ITO DESCARGA','ITO TOTAL','TAKAARA','TAKAARA DESCARGA','TAKAARA TOTAL','Percentual'];
+  const r2=v=>Math.round(v*100)/100;
+  const rows=L.map(({c,s})=>{const k=calcular(c,s);return {v:[c.loc,r2(c.val),c.mot,c.veic,c.pt,c.pito,c.ptak,r2(c.frete),r2(c.desc),r2(k.ito2),r2(k.itod),r2(k.itot),r2(k.tak),r2(k.takd),r2(k.takt),r2(k.p2)],fmt:{15:'p'}}});
+  const T=totais(L);
+  rows.push({tot:true,v:['Total ('+T.n+' cargas)',r2(T.val),'','',T.pt,T.pito,T.ptak,r2(T.frete),r2(T.desc),'','',r2(T.itot),'','',r2(T.takt),r2(T.p2)]});
+  const blob=xlsxBlob(`Frete ITO · ${dataBR(state.dia)} · ${diaSemana(state.dia)}`,cab,rows,[44,14,22,10,11,11,11,14,14,10,12,11,10,12,13,11]);
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`Frete_ITO_${dataBR(state.dia).replace(/\//g,'-')}.xlsx`;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},500);
+});
+
+/* ---------- dados ---------- */
+async function carregarEstado(){
+  try{
+    state.salvo=(await Store.ler('dias/'+state.dia))||{};
+    const gm=(await Store.ler('grupo_motorista'))||{};
+    state.grupoMot={};Object.keys(gm).forEach(k=>{try{state.grupoMot[decodeURIComponent(escape(atob(k)))]=gm[k]}catch(e){}});
+  }catch(e){toast('Falha ao ler o Firebase: '+e.message)}
+}
+function trocarDia(){
+  state.cargas=(window.DADOS_FRETE?window.DADOS_FRETE.cargas:[]).filter(c=>c.data===state.dia);
+}
+async function atualizar(){await carregarEstado();
+  const ativo=document.activeElement;
+  if(ativo&&ativo.dataset&&ativo.dataset.f)return; // não atrapalha quem está digitando
+  render();
+}
+async function iniciar(){
+  try{await carregarDados()}catch(e){Auth.sair();$('#loginErr').textContent='Não consegui abrir os dados do ERP (senha diferente da usada para gerar o dados_frete.js).';return}
+  $('#login').classList.add('hidden');$('#app').classList.remove('hidden');
+  const D=window.DADOS_FRETE;
+  if(!D||!D.cargas||!D.cargas.length){$('#view').innerHTML='<div class="card empty">Sem dados do ERP. Verifique o arquivo dados_frete.js.</div>';return}
+  const dias=[...new Set(D.cargas.map(c=>c.data))].sort().reverse();
+  $('#dia').innerHTML=dias.map(d=>`<option value="${d}">${dataBR(d)}</option>`).join('');
+  state.dia=dias[0];trocarDia();
+  $('#dia').addEventListener('change',async e=>{state.dia=e.target.value;trocarDia();await carregarEstado();render()});
+  if(!MODO_LOCAL&&!USA_AUTH)$('#modoBanner').innerHTML='<div class="banner warn">Banco sem login: configure API_KEY para proteger com senha no Firebase.</div>';
+  if(MODO_LOCAL)$('#modoBanner').innerHTML='<div class="banner warn">Modo teste: os dados digitados ficam só neste navegador. Configure o Firebase (FIREBASE_URL) para compartilhar entre os computadores.</div>';
+  if(D.geradoEm)$('#modoBanner').innerHTML+=`<div class="banner info">Dados do ERP gerados em ${new Date(D.geradoEm).toLocaleString('pt-BR')}.</div>`;
+  await carregarEstado();render();
+  setInterval(recarregarDados,300000);
+  if(!MODO_LOCAL)setInterval(atualizar,CONFIG.ATUALIZAR_A_CADA_SEGUNDOS*1000);
+}
+if(logado())iniciar().catch(()=>{Auth.sair();$('#login').classList.remove('hidden');$('#app').classList.add('hidden')});
+</script>
+</body>
+</html>
